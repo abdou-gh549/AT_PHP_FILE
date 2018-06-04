@@ -23,7 +23,7 @@ function at_get_opinions_of_point($point_id) {
         $user = mysqli_fetch_assoc($users);
       
         $opinion['username'] = $user['username'];
-        array_push($tmp_opinions, 'utf8_encode', $opinion);
+        array_push($tmp_opinions, $opinion);
     }
 
     mysqli_close($db);
