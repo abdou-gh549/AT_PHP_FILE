@@ -6,7 +6,7 @@ function at_get_favorites_of_user($user_id) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+    mysqli_set_charset($db,"utf8");
     $user_id = mysqli_real_escape_string($db, $user_id);
 
     $favorites = mysqli_query($db, "SELECT * FROM favorites WHERE user_id='$user_id'");
@@ -33,7 +33,7 @@ function at_get_favorites_of_user($user_id) {
         $favorite['point'] = $point['name'];
         $favorite['type'] = $point['type'];
         $favorite['description'] = $point['description'];
-        array_push($tmp_favorites, array_map('utf8_encode', $favorite));
+        array_push($tmp_favorites, $favorite);
     }
 
     mysqli_close($db);

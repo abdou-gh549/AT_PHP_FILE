@@ -6,7 +6,7 @@ function at_get_opinions_of_point($point_id) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+    mysqli_set_charset($db,"utf8");
     $point_id = mysqli_real_escape_string($db, $point_id);
 
     $opinions = mysqli_query($db, "SELECT * FROM opinions WHERE point_id='$point_id'");
@@ -23,7 +23,7 @@ function at_get_opinions_of_point($point_id) {
         $user = mysqli_fetch_assoc($users);
       
         $opinion['username'] = $user['username'];
-        array_push($tmp_opinions, array_map('utf8_encode', $opinion));
+        array_push($tmp_opinions, 'utf8_encode', $opinion);
     }
 
     mysqli_close($db);

@@ -7,6 +7,7 @@ function at_login($username, $password) {
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
     
+        mysqli_set_charset($db,"utf8");
     $username = mysqli_real_escape_string($db, $username);
     $password = mysqli_real_escape_string($db, $password);
 

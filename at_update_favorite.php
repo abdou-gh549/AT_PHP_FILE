@@ -6,7 +6,7 @@ function at_update_favorite($id, $note) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+    mysqli_set_charset($db,"utf8");
     $id = mysqli_real_escape_string($db, $id);
     $note = mysqli_real_escape_string($db, $note);
 

@@ -6,7 +6,7 @@ function at_has_user_comment($user_id, $point_id) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+    mysqli_set_charset($db,"utf8");
     $user_id = mysqli_real_escape_string($db, $user_id);
     $point_id = mysqli_real_escape_string($db, $point_id);
 

@@ -6,7 +6,7 @@ function at_get_points_of_town($town_id) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+        mysqli_set_charset($db,"utf8");
     $town_id = mysqli_real_escape_string($db, $town_id);
 
     $points = mysqli_query($db, "SELECT id, name, type, description FROM points WHERE town_id='$town_id'");
@@ -29,8 +29,8 @@ function at_get_points_of_town($town_id) {
                 $point['point_rating'] = '0.0';
             }
         }
-       
-        array_push($tmp_points, array_map('utf8_encode', $point));
+        
+        array_push($tmp_points,  $point);
     }
 
     mysqli_close($db);

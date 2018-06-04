@@ -6,7 +6,7 @@ function at_delete_favorite($id) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+    mysqli_set_charset($db,"utf8");
     $id = mysqli_real_escape_string($db, $id);
 
     $delete = mysqli_query($db, "DELETE FROM favorites WHERE id= '$id'");

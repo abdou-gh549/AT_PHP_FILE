@@ -9,7 +9,7 @@ function at_get_image_of($what, $id) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+    mysqli_set_charset($db,"utf8");
     $id = mysqli_real_escape_string($db, $id);
     $what = $what . 's';
 

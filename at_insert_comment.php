@@ -7,6 +7,7 @@ function at_add_comment($user_id, $point_id, $ratting, $comment) {
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
     
+        mysqli_set_charset($db,"utf8");
     $user_id = mysqli_real_escape_string($db, $user_id);
     $point_id = mysqli_real_escape_string($db, $point_id);
     $ratting = mysqli_real_escape_string($db, $ratting);

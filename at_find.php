@@ -6,7 +6,7 @@ function at_find($key) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+    mysqli_set_charset($db,"utf8");
     $key = mysqli_real_escape_string($db, $key);
     $string_query = 
     "   (SELECT id, image_id, name, wilaya, description, 'Ville' as 'type'
@@ -58,7 +58,7 @@ function at_find($key) {
             }
 
         }
-        array_push($result, array_map('utf8_encode', $row));
+        array_push($result, $row);
     }
         
 

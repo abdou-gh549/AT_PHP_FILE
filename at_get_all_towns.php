@@ -6,6 +6,8 @@ function at_get_all_towns() {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
+
+    mysqli_set_charset($db,"utf8");
     $towns = mysqli_query($db, "SELECT id, name, wilaya, description FROM towns");
     if(!$towns)
         return array('success'=>-1, 'message'=>'Database retrieve error');
@@ -33,7 +35,7 @@ function at_get_all_towns() {
         }
            
 
-        array_push($tmp_towns, array_map('utf8_encode', $town));
+        array_push($tmp_towns,  $town);
     }
     
     mysqli_close($db);

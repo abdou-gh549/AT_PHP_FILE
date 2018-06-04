@@ -6,7 +6,7 @@ function at_forgot_password($username, $email) {
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
-    
+    mysqli_set_charset($db,"utf8");
     $username = mysqli_real_escape_string($db, $username);
     $email = mysqli_real_escape_string($db, $email);
 
