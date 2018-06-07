@@ -31,6 +31,9 @@ function at_get_favorites_of_user($user_id) {
         $favorite['town'] = $town['name'];
         $favorite['wilaya'] = $town['wilaya'];
         $favorite['point'] = $point['name'];
+        $favorite['longitude'] = $point['longitude'];
+        $favorite['latitude'] = $point['latitude'];
+        $favorite['point'] = $point['name'];
         $favorite['type'] = $point['type'];
         $favorite['description'] = $point['description'];
 
