@@ -24,7 +24,7 @@ function at_register($username, $password, $email) {
         return array('success'=>0, 'message'=>'Email already used');
 
     if(!mysqli_query($db, "INSERT INTO users (id, username, password, email, join_date) VALUE
-        (NULL, '$username', '$password', '$email', CURRENT_DATE())"))
+        (NULL, '$username', '$password', '$email', NOW())"))
         return array('success'=>-1, 'message'=>'Register failed');
     $isert_id = mysqli_insert_id($db);
 

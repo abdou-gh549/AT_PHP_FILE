@@ -1,25 +1,21 @@
 <?php
 
-function at_get_points_of_town($town_id) {
+function at_get_all_point() {
     require_once('at_config.php');
 
     $db = mysqli_connect(SERVERNAME, USERNAME, PASSWORD, DATABASE);
     if(!$db)
         return array('success'=>-1, 'message'=>'Database connexion error');
         mysqli_set_charset($db,"utf8");
-    $town_id = mysqli_real_escape_string($db, $town_id);
-
+    $points = mysqli_query($db, 
+    "SELECT points.id,points.name,towns.name as ville_name, towns.wilaya as wilaya, points.type, points.description,longitude,latitude FROM points,towns 
+        Where points.town_id = towns.id");
     
-    $points = mysqli_query($db, "SELECT points.id,points.name,towns.name AS ville_name, towns.wilaya AS wilaya, points.type, points.description,longitude,latitude FROM points,towns 
-                                    Where points.town_id = towns.id AND points.town_id='$town_id'");
-
     if(!$points)
         return array('success'=>-1, 'message'=>'Database retrieve error');
     
     $tmp_points = array();
     while($point = mysqli_fetch_assoc($points)) {
-        unset($point['image_id']);
-        unset($point['town_id']);
         $point_rank = mysqli_query($db, "SELECT (SUM(rating) / COUNT(rating)) as point_rating  FROM opinions WHERE point_id = '$point[id]'");
        
         if(!$point_rank){
@@ -42,7 +38,6 @@ function at_get_points_of_town($town_id) {
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['target']) && $_POST['target'] == 'external')
-    if(isset($_POST['town_id']))
-        echo json_encode(at_get_points_of_town($_POST['town_id']));
+        echo json_encode(at_get_all_point());
 
 ?>

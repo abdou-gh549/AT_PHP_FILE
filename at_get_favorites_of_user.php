@@ -33,6 +33,19 @@ function at_get_favorites_of_user($user_id) {
         $favorite['point'] = $point['name'];
         $favorite['type'] = $point['type'];
         $favorite['description'] = $point['description'];
+
+        $point_rank = mysqli_query($db, "SELECT (SUM(rating) / COUNT(rating)) as point_rating  FROM opinions WHERE point_id = '$point[id]'");
+       
+        if(!$point_rank){
+            $favorite['point_rating'] = '0.0';
+        }else {
+            $point_rating = mysqli_fetch_assoc($point_rank)['point_rating'];
+            if ( $point_rating != ''){
+                $favorite['point_rating'] = $point_rating;
+            }else{
+                $favorite['point_rating'] = '0.0';
+            }
+        }
         array_push($tmp_favorites, $favorite);
     }
 
