@@ -26,7 +26,7 @@ function at_find($key) {
     while($row = mysqli_fetch_assoc($query)){
         if( $row['type'] == 'Ville'){
             // get ville rating
-            $town_rank = mysqli_query($db, "SELECT  (SUM(point_ratting) / COUNT(town_id)) as town_ratting
+            $town_rank = mysqli_query($db, "SELECT  ROUND(SUM(point_ratting) / COUNT(town_id),1) as town_ratting
                 From (
                     SELECT point_id, (SUM(rating) / COUNT(rating)) as point_ratting  FROM opinions GROUP BY point_id
                     ) as rating_point,points 
@@ -43,8 +43,15 @@ function at_find($key) {
                 }
             }
             }else{
+                // get point position longiture / latitude
+                $point_position = mysqli_query($db, "SELECT latitude, longitude  FROM points WHERE id = '$row[id]'");
+                $point_position = mysqli_fetch_assoc($point_position);
+
+                $row['latitude'] = $point_position['latitude'];
+                $row['longitude'] = $point_position['longitude'];
+            
                 // get point rating
-                $point_rank = mysqli_query($db, "SELECT (SUM(rating) / COUNT(rating)) as point_rating  FROM opinions WHERE point_id = '$row[id]'");
+                $point_rank = mysqli_query($db, "SELECT ROUND(SUM(rating) / COUNT(rating),1) as point_rating  FROM opinions WHERE point_id = '$row[id]'");
         
                 if(!$point_rank){
                     $row['rating'] = '0.0';
@@ -55,7 +62,8 @@ function at_find($key) {
                     }else{
                         $row['rating'] = '0.0';
                     }
-            }
+                }
+                
 
         }
         array_push($result, $row);

@@ -16,7 +16,7 @@ function at_get_all_point() {
     
     $tmp_points = array();
     while($point = mysqli_fetch_assoc($points)) {
-        $point_rank = mysqli_query($db, "SELECT (SUM(rating) / COUNT(rating)) as point_rating  FROM opinions WHERE point_id = '$point[id]'");
+        $point_rank = mysqli_query($db, "SELECT ROUND(SUM(rating) / COUNT(rating),1) as point_rating  FROM opinions WHERE point_id = '$point[id]'");
        
         if(!$point_rank){
             $point['point_rating'] = '0.0';

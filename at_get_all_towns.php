@@ -17,7 +17,7 @@ function at_get_all_towns() {
         unset($town['image_id']);
         
         // get ville ratting
-        $town_rank = mysqli_query($db, "SELECT  (SUM(point_ratting) / COUNT(town_id)) as town_ratting
+        $town_rank = mysqli_query($db, "SELECT  ROUND(SUM(point_ratting) / COUNT(town_id),1) as town_ratting
                 From (
                     SELECT point_id, (SUM(rating) / COUNT(rating)) as point_ratting  FROM opinions GROUP BY point_id
                     ) as rating_point,points 

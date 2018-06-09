@@ -20,7 +20,7 @@ function at_get_points_of_town($town_id) {
     while($point = mysqli_fetch_assoc($points)) {
         unset($point['image_id']);
         unset($point['town_id']);
-        $point_rank = mysqli_query($db, "SELECT (SUM(rating) / COUNT(rating)) as point_rating  FROM opinions WHERE point_id = '$point[id]'");
+        $point_rank = mysqli_query($db, "SELECT ROUND(SUM(rating) / COUNT(rating),1) as point_rating  FROM opinions WHERE point_id = '$point[id]'");
        
         if(!$point_rank){
             $point['point_rating'] = '0.0';

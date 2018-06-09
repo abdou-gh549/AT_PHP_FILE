@@ -12,7 +12,7 @@ function at_add_favorite($user_id, $point_id, $note) {
     $note = mysqli_real_escape_string($db, $note);
 
     $insert = mysqli_query($db, "INSERT INTO favorites(id, user_id, point_id, note, add_date) VALUE
-        (NULL, '$user_id', '$point_id', '$note', CURRENT_DATE())");
+        (NULL, '$user_id', '$point_id', '$note', NOW())");
     if(!$insert || !mysqli_affected_rows($db))
         return array('success'=>-1, 'message'=>'Database insert error');
 
