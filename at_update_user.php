@@ -29,13 +29,13 @@ function at_updateuser($username, $email, $password) {
         if(!mysqli_query($db, "UPDATE users SET password='$password' WHERE username='$username'"))
             return array('success'=>-1, 'message'=>'Database update error');
         else if($message)
-            $message = $message . ' and password';
+            $message = $message . ' et Mot de passe';
         else
-            $message = 'Password';
+            $message = 'Mot de passe';
     }
     
     if($message)
-        $message = $message . ' updated';
+        $message = $message . ' changé';
 
     mysqli_close($db);
 
